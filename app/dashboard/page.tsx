@@ -1,20 +1,13 @@
-import { auth } from "@/auth";
-import { Metadata } from "next";
-export const metadata: Metadata = {
-  title: "Dashboard",
-};
+import { auth } from '@/auth';
+import MainLayouts from '@/layouts/main-layouts'
+import React from 'react'
 
-const Dashboard = async () => {
-  const session = await auth();
-
+export default async function page() {
+    const session = await auth();
   return (
-    <div className="max-w-screen-xl mx-auto py-6 p-4">
-      <h1 className="text-2xl">Dashboard</h1>
-      <h2 className="text-xl">
-        Welcome Back: <span className="font-bold">{session?.user?.name}</span>
-      </h2>
-    </div>
-  );
-};
-
-export default Dashboard;
+    <MainLayouts session={session}>
+        {session?.user?.name}
+        {session?.user?.email}
+    </MainLayouts>
+  )
+}
